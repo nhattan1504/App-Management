@@ -52,6 +52,12 @@ namespace ManagementApp {
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+            });
             }
         }
     }

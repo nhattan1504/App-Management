@@ -8,34 +8,40 @@ using Microsoft.EntityFrameworkCore;
 using ManagementApp.Data;
 using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
+using ManagementApp.WorkOfUnit;
+
 namespace ManagementApp.Controllers
 {
+    
     public class UsersController : Controller
     {
-        private readonly AppContext _context;
+        UnitOfWork uow;
+        //private readonly AppContext _context;
 
-        public UsersController(AppContext context)
+        public UsersController()
         {
-            _context = context;
+            uow = new UnitOfWork(new AppContext());
         }
 
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            var list = uow.Users.GetAll();
+            return View(list);
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .Include(s => s.Postss).AsNoTracking()
-                .FirstOrDefaultAsync(m => m.id == id);
+            //var user = await _context.Users
+            //    .Include(s => s.Postss).AsNoTracking()
+            //    .FirstOrDefaultAsync(m => m.id == id);
+            var user = uow.Users.Get(id);
             if (user == null)
             {
                 return NotFound();
@@ -59,22 +65,23 @@ namespace ManagementApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                //_context.Add(user);
+                uow.Users.Add(user);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
         }
 
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = uow.Users.Get(id);
             if (user == null)
             {
                 return NotFound();
@@ -98,8 +105,9 @@ namespace ManagementApp.Controllers
             {
                 try
                 {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
+                    uow.Users.Update(user);
+                    //_context.Update(user);
+                    //await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,15 +126,16 @@ namespace ManagementApp.Controllers
         }
 
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.id == id);
+            //var user = await _context.Users
+            //    .FirstOrDefaultAsync(m => m.id == id);
+            var user = uow.Users.Get(id);
             if (user == null)
             {
                 return NotFound();
@@ -140,15 +149,17 @@ namespace ManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            //var user = await _context.Users.FindAsync(id);
+            var user = uow.Users.Get(id);
+            //_context.Users.Remove(user);
+            uow.Users.Remove(user);
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.id == id);
+            return uow.Users.Any(e => e.id == id);
         }
     }
 }

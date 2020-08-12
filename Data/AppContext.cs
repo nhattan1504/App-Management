@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ManagementApp.Models {
     public class AppContext:DbContext {
+        public AppContext() { }
         public AppContext(DbContextOptions<AppContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Posts> Postss { get; set; }
