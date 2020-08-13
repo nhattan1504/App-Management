@@ -7,33 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
+using ManagementApp.WorkOfUnit;
+
 namespace ManagementApp.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly AppContext _context;
+        UnitOfWork uow;
+        //private readonly AppContext _context;
 
-        public PostsController(AppContext context)
+        public PostsController()
         {
-            _context = context;
+            uow = new UnitOfWork( new AppContext());
         }
 
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Postss.ToListAsync());
+            return View(uow.Post.GetAll());
         }
 
         // GET: Posts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var posts = await _context.Postss
-                .FirstOrDefaultAsync(m => m.id == id);
+            var posts = uow.Post.Get(id);
             if (posts == null)
             {
                 return NotFound();
@@ -57,22 +59,21 @@ namespace ManagementApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(posts);
-                await _context.SaveChangesAsync();
+                uow.Post.Add(posts);
                 return RedirectToAction(nameof(Index));
             }
             return View(posts);
         }
 
         // GET: Posts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var posts = await _context.Postss.FindAsync(id);
+            var posts = uow.Post.Get(id);
             if (posts == null)
             {
                 return NotFound();
@@ -96,8 +97,7 @@ namespace ManagementApp.Controllers
             {
                 try
                 {
-                    _context.Update(posts);
-                    await _context.SaveChangesAsync();
+                    uow.Post.Update(posts);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,15 +116,14 @@ namespace ManagementApp.Controllers
         }
 
         // GET: Posts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var posts = await _context.Postss
-                .FirstOrDefaultAsync(m => m.id == id);
+            var posts = uow.Post.Get(id);
             if (posts == null)
             {
                 return NotFound();
@@ -138,9 +137,8 @@ namespace ManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var posts = await _context.Postss.FindAsync(id);
-            _context.Postss.Remove(posts);
-            await _context.SaveChangesAsync();
+            var posts = uow.Post.Get(id);
+            uow.Post.Remove(posts);
             return RedirectToAction(nameof(Index));
         }
 
