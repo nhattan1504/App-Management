@@ -10,6 +10,7 @@ using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace ManagementApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace ManagementApp.Controllers
         //private readonly AppContext _context;
 
         public UsersController(IServiceProvider provider) {
-            uow = new UnitOfWork(new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>()));
+            uow = new UnitOfWork(provider);
             }
         //public UsersController() {
         //    uow = new UnitOfWork(new AppContext());
@@ -173,6 +174,7 @@ namespace ManagementApp.Controllers
             var all = uow.Users.GetAll().Where(x => (x.email == user.email && x.password == user.password)).ToList();
             if (all != null)
                 {
+                
                 return RedirectToAction(nameof(Index));
                 }
             //return View(user);

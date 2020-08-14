@@ -23,6 +23,13 @@ namespace ManagementApp {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromDays(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<Models.AppContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -31,6 +38,7 @@ namespace ManagementApp {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            
             if (env.IsDevelopment())
                 {
                 app.UseDeveloperExceptionPage();
@@ -45,7 +53,7 @@ namespace ManagementApp {
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {

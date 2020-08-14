@@ -32,7 +32,6 @@ namespace ManagementApp.Repository {
             }
 
         public void Edit(TEntity entity) {
-
             throw new NotImplementedException();
             }
 
