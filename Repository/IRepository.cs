@@ -13,7 +13,7 @@ namespace ManagementApp.Repository {
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
         void Add(TEntity entity);
         void Update(TEntity entity);
-        bool CheckExist();
+        
         void AddRange(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);

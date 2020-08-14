@@ -9,6 +9,7 @@ using ManagementApp.Data;
 using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ManagementApp.Controllers
 {
@@ -18,9 +19,9 @@ namespace ManagementApp.Controllers
         UnitOfWork uow;
         //private readonly AppContext _context;
 
-        public UsersController()
+        public UsersController(IServiceProvider provider)
         {
-            uow = new UnitOfWork(new AppContext());
+            uow = new UnitOfWork(new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>()));
         }
 
         // GET: Users
@@ -111,14 +112,14 @@ namespace ManagementApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!UserExists(user.id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -156,10 +157,18 @@ namespace ManagementApp.Controllers
             //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool UserExists(int id)
-        {
-            return uow.Users.Any(e => e.id == id);
-        }
+        [HttpPost]
+        public IActionResult Login( User user) {
+            //var all = uow.Users.GetAll().Where(x=> x.email==user.email&&x.password==user.password).FirstOrDefault();
+            //if (all != null)
+            //    {
+            //    return RedirectToAction(nameof(Index));
+            //    }
+            return View(user);
+            }
+        //private bool UserExists(int id)
+        //{
+        //    return uow.Users.Any(e => e.id == id);
+        //}
     }
 }

@@ -101,14 +101,14 @@ namespace ManagementApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostsExists(posts.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!PostsExists(posts.id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -142,9 +142,9 @@ namespace ManagementApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PostsExists(int id)
-        {
-            return _context.Postss.Any(e => e.id == id);
-        }
+        //private bool PostsExists(int id)
+        //{
+        //    return _context.Postss.Any(e => e.id == id);
+        //}
     }
 }

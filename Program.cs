@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using AppContext = ManagementApp.Models.AppContext;
+//using AppContext = ManagementApp.Models.AppContext;
 using System;
 
 namespace ManagementApp {
@@ -22,7 +22,7 @@ namespace ManagementApp {
                 var services = scope.ServiceProvider;
                 try
                     {
-                    var context = services.GetRequiredService<AppContext>();
+                    var context = services.GetRequiredService<Models.AppContext>();
                     Dbinitializer.Inittialize(context);
                     }
                 catch (Exception ex)

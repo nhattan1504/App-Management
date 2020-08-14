@@ -1,0 +1,15 @@
+﻿@model ManagementApp.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<form>
+    <label>Email</label>
+    <input asp-for="email" name="email"/>
+    <label>Password</label>
+    <input asp-for="password" name="password" type="hidden"/>
+    <input type="submit"/>
+</form>
