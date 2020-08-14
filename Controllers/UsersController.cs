@@ -19,10 +19,12 @@ namespace ManagementApp.Controllers
         UnitOfWork uow;
         //private readonly AppContext _context;
 
-        public UsersController(IServiceProvider provider)
-        {
+        public UsersController(IServiceProvider provider) {
             uow = new UnitOfWork(new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>()));
-        }
+            }
+        //public UsersController() {
+        //    uow = new UnitOfWork(new AppContext());
+        //    }
 
         // GET: Users
         public async Task<IActionResult> Index()
@@ -157,13 +159,23 @@ namespace ManagementApp.Controllers
             //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
-        public IActionResult Login( User user) {
+        public IActionResult Login() {
             //var all = uow.Users.GetAll().Where(x=> x.email==user.email&&x.password==user.password).FirstOrDefault();
             //if (all != null)
             //    {
             //    return RedirectToAction(nameof(Index));
             //    }
+            return View();
+            }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(User user) {
+            var all = uow.Users.GetAll().Where(x => (x.email == user.email && x.password == user.password)).ToList();
+            if (all != null)
+                {
+                return RedirectToAction(nameof(Index));
+                }
+            //return View(user);
             return View(user);
             }
         //private bool UserExists(int id)

@@ -19,9 +19,12 @@ namespace ManagementApp.Repository {
         //public void Add() {
 
         //    }
-
+        //public void Save(TEntity entity) {
+        //    DbSetEntity.Update();
+        //    }
         public void Add(TEntity entity) {
             DbSetEntity.Add(entity);
+            Context.SaveChanges();
             }
 
         public void AddRange(IEnumerable<TEntity> entities) {
@@ -48,14 +51,17 @@ namespace ManagementApp.Repository {
 
         public void Remove(TEntity entity) {
             DbSetEntity.Remove(entity);
+            Context.SaveChanges();
             }
 
         public void RemoveRange(IEnumerable<TEntity> entities) {
             DbSetEntity.RemoveRange(entities);
+            Context.SaveChanges();
             }
 
         public void Update(TEntity entity) {
             DbSetEntity.Update(entity);
+            Context.SaveChanges();
             }
 
         public void Save() {

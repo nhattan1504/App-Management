@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="Mapper\" />
     <Folder Include="Service\" />
-    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 
 </Project>

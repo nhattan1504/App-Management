@@ -1,4 +1,6 @@
 ﻿using ManagementApp.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,8 @@ namespace ManagementApp.WorkOfUnit {
 
         private readonly AppContext _context;
 
-        public UnitOfWork(AppContext context) {
-            _context = context;
+        public UnitOfWork(IServiceProvider provider) {
+            _context = new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>());
             }
 
         public UserRepository Users { get { return new UserRepository(_context); } }

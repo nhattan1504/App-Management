@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ManagementApp.Controllers
 {
@@ -16,9 +17,9 @@ namespace ManagementApp.Controllers
         UnitOfWork uow;
         //private readonly AppContext _context;
 
-        public PostsController()
+        public PostsController(IServiceProvider provider)
         {
-            uow = new UnitOfWork( new AppContext());
+            uow = new UnitOfWork( new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>()));
         }
 
         // GET: Posts
@@ -141,7 +142,7 @@ namespace ManagementApp.Controllers
             uow.Post.Remove(posts);
             return RedirectToAction(nameof(Index));
         }
-
+        
         //private bool PostsExists(int id)
         //{
         //    return _context.Postss.Any(e => e.id == id);
