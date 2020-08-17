@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj": {}
+    "C:\\Users\\tannguyen\\OneDrive\\ManagementApp\\ManagementApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj": {
+    "C:\\Users\\tannguyen\\OneDrive\\ManagementApp\\ManagementApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj",
+        "projectUniqueName": "C:\\Users\\tannguyen\\OneDrive\\ManagementApp\\ManagementApp.csproj",
         "projectName": "ManagementApp",
-        "projectPath": "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj",
+        "projectPath": "C:\\Users\\tannguyen\\OneDrive\\ManagementApp\\ManagementApp.csproj",
         "packagesPath": "C:\\Users\\tannguyen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\obj\\",
+        "outputPath": "C:\\Users\\tannguyen\\OneDrive\\ManagementApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tannguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.6, )"

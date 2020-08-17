@@ -9,6 +9,7 @@ using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 
 namespace ManagementApp.Controllers
 {
@@ -19,22 +20,35 @@ namespace ManagementApp.Controllers
 
         public PostsController(IServiceProvider provider)
         {
-            uow = new UnitOfWork( new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>()));
+            uow = new UnitOfWork( provider);
         }
-
+       
+        [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         // GET: Posts
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("username")==null){
+                return NotFound();
+                }
             return View(uow.Post.GetAll());
         }
-
+        //Get: PostOfUser
+        public async Task<IActionResult> IndexUser() {
+            var postUser = uow.Post.GetAll().Where(p => p.isAccept == true).ToList();
+            return View(postUser);
+            }
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
             {
                 return NotFound();
             }
+
 
             var posts = uow.Post.Get(id);
             if (posts == null)
@@ -56,12 +70,16 @@ namespace ManagementApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,content,imageUrl,isAccept")] Posts posts)
+        public async Task<IActionResult> Create([Bind("id,content,title,isAccept=false")] Posts posts)
         {
+            //if (HttpContext.Session.GetString("username") == null)
+            //    {
+            //    return NotFound();
+            //    }
             if (ModelState.IsValid)
             {
                 uow.Post.Add(posts);
-                return RedirectToAction(nameof(Index));
+                return Redirect("Create");
             }
             return View(posts);
         }
@@ -69,6 +87,10 @@ namespace ManagementApp.Controllers
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
             {
                 return NotFound();
@@ -87,8 +109,12 @@ namespace ManagementApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,content,imageUrl,isAccept")] Posts posts)
+        public async Task<IActionResult> Edit(int id, [Bind("id,content,title,isAccept")] Posts posts)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id != posts.id)
             {
                 return NotFound();
@@ -119,6 +145,10 @@ namespace ManagementApp.Controllers
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
             {
                 return NotFound();
@@ -138,6 +168,10 @@ namespace ManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             var posts = uow.Post.Get(id);
             uow.Post.Remove(posts);
             return RedirectToAction(nameof(Index));

@@ -1,0 +1,32 @@
+﻿@*@{
+        ViewData["Title"] = "Home Page";
+        Layout = "~/Views/Shared/_LayoutPost.cshtml";
+
+    }
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
+
+@model IEnumerable<ManagementApp.Models.Posts>
+
+@{
+    ViewData["Title"] = "IndexPost";
+    Layout = "~/Views/Shared/_LayoutPost.cshtml";
+}
+
+<h1 style="text-align: center">Index</h1>
+
+<p>
+    <a asp-controller="Posts" asp-action="Create" class="btn btn-primary">Create Post</a>
+</p>
+<p>
+    @foreach (var item in Model)
+        {
+        <strong style="font-size: 2em">@Html.DisplayFor(modelItem => item.title)</strong>
+        @Html.Raw(item.content)
+        <br />
+        <br />
+        }
+</p>

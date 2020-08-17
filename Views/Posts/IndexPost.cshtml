@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ManagementApp.Models.Posts>
+
+@{
+    ViewData["Title"] = "IndexUser";
+    Layout = "~/Views/Shared/_LayoutPost.cshtml";
+}
+
+<h1 style="text-align: center">Index</h1>
+
+<a asp-action="Create" class="btn btn-primary">Create Post</a>
+<p>
+    @foreach (var item in Model)
+        {
+        <strong style="font-size: 2em">@Html.DisplayFor(modelItem => item.title)</strong>
+        @Html.Raw(item.content)
+        <br />
+        <br />
+        }
+</p>

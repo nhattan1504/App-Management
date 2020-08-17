@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.content)
+                @Html.DisplayNameFor(model => model.title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.imageUrl)
+                @Html.DisplayNameFor(model => model.content)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.isAccept)
@@ -28,19 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.content)
+                @Html.DisplayFor(modelItem =>item.title)
             </td>
             <td>
-                <img src="@Url.Content(item.imageUrl)" alt="Image" style="height:200px;width:200px;" />
-                @*@Html.DisplayFor(modelItem => item.imageUrl)*@
+                @Html.Raw(item.content)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.isAccept)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id"class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id"class="btn btn-warning">Delete</a>
             </td>
         </tr>
 }

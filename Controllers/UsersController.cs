@@ -11,6 +11,7 @@ using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Microsoft.AspNetCore.Http;
 
 namespace ManagementApp.Controllers
 {
@@ -30,6 +31,10 @@ namespace ManagementApp.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             var list = uow.Users.GetAll();
             return View(list);
         }
@@ -37,6 +42,10 @@ namespace ManagementApp.Controllers
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
             {
                 return NotFound();
@@ -67,6 +76,10 @@ namespace ManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("name,email,password,id,isAdmin")] User user)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (ModelState.IsValid)
             {
                 //_context.Add(user);
@@ -80,6 +93,10 @@ namespace ManagementApp.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
             {
                 return NotFound();
@@ -100,6 +117,10 @@ namespace ManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("name,email,password,id,isAdmin")] User user)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id != user.id)
             {
                 return NotFound();
@@ -132,6 +153,10 @@ namespace ManagementApp.Controllers
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
             {
                 return NotFound();
@@ -153,6 +178,10 @@ namespace ManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             //var user = await _context.Users.FindAsync(id);
             var user = uow.Users.Get(id);
             //_context.Users.Remove(user);
@@ -171,18 +200,24 @@ namespace ManagementApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(User user) {
-            var all = uow.Users.GetAll().Where(x => (x.email == user.email && x.password == user.password)).ToList();
+            var all = uow.Users.GetAll().Where(x => (x.email == user.email && x.password == user.password)).FirstOrDefault();
             if (all != null)
                 {
-                
+                HttpContext.Session.SetString("username", all.name);
                 return RedirectToAction(nameof(Index));
                 }
             //return View(user);
-            return View(user);
+            return NotFound();
+            }
+        [Route("logout")]
+        [HttpGet]
+        public IActionResult Logout() {
+            HttpContext.Session.Remove("username");
+            return Redirect("Home");
             }
         //private bool UserExists(int id)
         //{
         //    return uow.Users.Any(e => e.id == id);
         //}
-    }
+        }
 }

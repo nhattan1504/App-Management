@@ -11,7 +11,7 @@ namespace ManagementApp.Models {
         public int id { get; set; }
         public string content { get; set; }
         //[DisplayName("Upload image")]
-        public string imageUrl { get; set; }
+        public string title { get; set; }
         //public HttpPostAttribute ImageFile { get; set; }
         public bool isAccept { get; set; }
         public User User { get; set; }

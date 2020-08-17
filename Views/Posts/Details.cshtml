@@ -14,13 +14,13 @@
             @Html.DisplayNameFor(model => model.content)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.content)
+            @Html.Raw(Model.content)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.imageUrl)
+            @Html.DisplayNameFor(model => model.title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.imageUrl)
+            @Html.DisplayFor(model => model.title)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.isAccept)
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.id" class="btn btn-info">Edit</a> |
+    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
 </div>
