@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj": {}
+    "D:\\.net\\App-Management\\ManagementApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj": {
+    "D:\\.net\\App-Management\\ManagementApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj",
+        "projectUniqueName": "D:\\.net\\App-Management\\ManagementApp.csproj",
         "projectName": "ManagementApp",
-        "projectPath": "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\ManagementApp.csproj",
-        "packagesPath": "C:\\Users\\tannguyen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tannguyen\\source\\repos\\ManagementApp\\obj\\",
+        "projectPath": "D:\\.net\\App-Management\\ManagementApp.csproj",
+        "packagesPath": "C:\\Users\\ASUS-GL503\\.nuget\\packages\\",
+        "outputPath": "D:\\.net\\App-Management\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\tannguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ASUS-GL503\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

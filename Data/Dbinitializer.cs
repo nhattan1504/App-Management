@@ -23,8 +23,8 @@ namespace ManagementApp.Data {
                 }
             context.SaveChanges();
             var posts = new Posts[] {
-                new Posts{content="mlem",imageUrl="C://Users//tannguyen//Pictures//digital-art-night-scenery-forest-uhdpaper.com-hd-100.jpg",isAccept=true},
-                new Posts{content="mlemmmmmmmmmm",imageUrl="C://Users//tannguyen//Pictures//digital-art-night-scenery-forest-uhdpaper.com-hd-100.jpg",isAccept=false}
+                new Posts{content="mlem",isAccept=true},
+                new Posts{content="mlemmmmmmmmmm",isAccept=false}
                 };
             foreach (Posts s in posts)
                 {

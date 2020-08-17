@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ManagementApp.Data;
 using Microsoft.AspNetCore.Http;
+using UploadFileInCKEditorInASPNetCore.Models;
 
 namespace ManagementApp {
     public class Startup {
@@ -26,6 +27,8 @@ namespace ManagementApp {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<Models.AppContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<UploadFileInCKEditorInASPNetCoreContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("UploadFileInCKEditorInASPNetCoreContext")));
             services.AddControllersWithViews();
             }
 

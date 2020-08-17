@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ManagementApp.Models;
 using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ManagementApp.Controllers
 {
@@ -16,9 +17,9 @@ namespace ManagementApp.Controllers
         UnitOfWork uow;
         //private readonly AppContext _context;
 
-        public PostsController()
+        public PostsController(IServiceProvider provider)
         {
-            uow = new UnitOfWork( new AppContext());
+            uow = new UnitOfWork(new AppContext(provider.GetRequiredService<DbContextOptions<AppContext>>()));
         }
 
         // GET: Posts
@@ -55,7 +56,7 @@ namespace ManagementApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,content,imageUrl,isAccept")] Posts posts)
+        public async Task<IActionResult> Create([Bind("id,content,title,isAccept=false")] Posts posts)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +87,7 @@ namespace ManagementApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,content,imageUrl,isAccept")] Posts posts)
+        public async Task<IActionResult> Edit(int id, [Bind("id,content,title,isAccept")] Posts posts)
         {
             if (id != posts.id)
             {

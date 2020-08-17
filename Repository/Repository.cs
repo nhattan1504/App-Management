@@ -22,6 +22,7 @@ namespace ManagementApp.Repository {
 
         public void Add(TEntity entity) {
             DbSetEntity.Add(entity);
+            Context.SaveChanges();
             }
 
         public void AddRange(IEnumerable<TEntity> entities) {
@@ -48,7 +49,9 @@ namespace ManagementApp.Repository {
 
         public void Remove(TEntity entity) {
             DbSetEntity.Remove(entity);
-            }
+            Context.SaveChanges();
+
+        }
 
         public void RemoveRange(IEnumerable<TEntity> entities) {
             DbSetEntity.RemoveRange(entities);
@@ -56,7 +59,9 @@ namespace ManagementApp.Repository {
 
         public void Update(TEntity entity) {
             DbSetEntity.Update(entity);
-            }
+            Context.SaveChanges();
+
+        }
 
         public void Save() {
             throw new NotImplementedException();
