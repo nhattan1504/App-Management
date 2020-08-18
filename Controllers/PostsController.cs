@@ -23,7 +23,7 @@ namespace ManagementApp.Controllers
             uow = new UnitOfWork( provider);
         }
        
-        [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+        //[Microsoft.AspNetCore.Authorization.AllowAnonymous]
         // GET: Posts
         public async Task<IActionResult> Index()
         {
