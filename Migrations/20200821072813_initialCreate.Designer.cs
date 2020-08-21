@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-//using AppContext = ManagementApp.Models.;
+
 namespace ManagementApp.Migrations
 {
     [DbContext(typeof(ManagementApp.Models.AppContext))]
-    [Migration("20200817101157_Tag")]
-    partial class Tag
+    [Migration("20200821072813_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,12 @@ namespace ManagementApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("Userid")
                         .HasColumnType("int");
@@ -45,6 +51,26 @@ namespace ManagementApp.Migrations
                     b.HasIndex("Userid");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("ManagementApp.Models.Tags", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Post_FK")
+                        .HasColumnType("int");
+
+                    b.Property<string>("tagName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Post_FK");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("ManagementApp.Models.User", b =>
@@ -76,6 +102,15 @@ namespace ManagementApp.Migrations
                     b.HasOne("ManagementApp.Models.User", "User")
                         .WithMany("Postss")
                         .HasForeignKey("Userid");
+                });
+
+            modelBuilder.Entity("ManagementApp.Models.Tags", b =>
+                {
+                    b.HasOne("ManagementApp.Models.Posts", "Posts")
+                        .WithMany()
+                        .HasForeignKey("Post_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

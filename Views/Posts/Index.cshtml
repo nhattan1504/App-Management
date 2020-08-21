@@ -19,6 +19,12 @@
                 @Html.DisplayNameFor(model => model.content)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.isAccept)
             </th>
             <th></th>
@@ -28,18 +34,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem =>item.title)
+                @Html.DisplayFor(modelItem => item.title)
             </td>
             <td>
                 @Html.Raw(item.content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.isAccept)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id"class="btn btn-info">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id"class="btn btn-warning">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-warning">Delete</a>
             </td>
         </tr>
 }

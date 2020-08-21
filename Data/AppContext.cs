@@ -22,7 +22,7 @@ namespace ManagementApp.Models {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Posts>().ToTable("Posts");
-            //modelBuilder.Entity<Tag>().ToTable("Tag");
+            modelBuilder.Entity<Tags>().ToTable("Tags");
 
             }
         }

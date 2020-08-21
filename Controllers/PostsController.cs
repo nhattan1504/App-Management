@@ -10,17 +10,22 @@ using AppContext = ManagementApp.Models.AppContext;
 using ManagementApp.WorkOfUnit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace ManagementApp.Controllers
 {
     public class PostsController : Controller
     {
         UnitOfWork uow;
+        private readonly IWebHostEnvironment _hostEnvirontment;
+
         //private readonly AppContext _context;
 
-        public PostsController(IServiceProvider provider)
+        public PostsController(IServiceProvider provider, IWebHostEnvironment hostEnvirontment)
         {
             uow = new UnitOfWork( provider);
+            this._hostEnvirontment = hostEnvirontment;
         }
        
         //[Microsoft.AspNetCore.Authorization.AllowAnonymous]
@@ -70,7 +75,7 @@ namespace ManagementApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,content,title,isAccept=false")] Posts posts)
+        public async Task<IActionResult> Create([Bind("id,content,title,ImageFile,Description,isAccept=false")] Posts posts)
         {
             //if (HttpContext.Session.GetString("username") == null)
             //    {
@@ -78,6 +83,18 @@ namespace ManagementApp.Controllers
             //    }
             if (ModelState.IsValid)
             {
+                //save image to wwwroot/image
+                string wwwRootPath = _hostEnvirontment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                string extension = Path.GetExtension(posts.ImageFile.FileName);
+                posts.ImageName= fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await posts.ImageFile.CopyToAsync(fileStream);
+                }
+
+
                 uow.Post.Add(posts);
                 return Redirect("Create");
             }
@@ -109,7 +126,7 @@ namespace ManagementApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,content,title,isAccept")] Posts posts)
+        public async Task<IActionResult> Edit(int id, [Bind("id,content,title,ImageName,Description,isAccept")] Posts posts)
         {
             if (HttpContext.Session.GetString("username") == null)
                 {

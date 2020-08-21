@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
@@ -13,8 +15,16 @@ namespace ManagementApp.Models {
         //[DisplayName("Upload image")]
         public string title { get; set; }
 
-        public string imageUrl { get; set; }
-        public string description { get; set; }
+        [Column(TypeName="nvarchar(100)")]
+        [DisplayName("Image Name")]
+        public string ImageName { get; set; }
+
+        [NotMapped]
+        [DisplayName("Upload File")]
+        public IFormFile ImageFile { get; set; }
+
+        [Column(TypeName = "nvarchar(200)")]
+        public string Description { get; set; }
         //public HttpPostAttribute ImageFile { get; set; }
         public bool isAccept { get; set; }
         public User User { get; set; }

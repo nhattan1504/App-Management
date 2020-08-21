@@ -11,8 +11,9 @@
 <p>
     @foreach (var item in Model)
         {
-        <strong style="font-size: 2em">@Html.DisplayFor(modelItem => item.title)</strong>
+        <a href="#"><strong style="font-size: 2em">@Html.DisplayFor(modelItem => item.title)</strong></a>
         @Html.Raw(item.content)
+        <img src="@("~/ImageAvt/" + item.ImageName)" asp-append-version="true" width="250px" height="250px" />
         <br />
         <br />
         }
