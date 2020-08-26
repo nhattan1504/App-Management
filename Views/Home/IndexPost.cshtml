@@ -9,7 +9,7 @@
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>*@
 
-@model IEnumerable<ManagementApp.Models.Posts>
+@model cloudscribe.Pagination.Models.PagedResult<Posts>
 
 @{
     ViewData["Title"] = "IndexPost";
@@ -17,17 +17,14 @@
 }
 
 <p>
-    <a asp-controller="Posts" asp-action="Create" class="btn btn-primary">Create Post</a>
-</p>
-<p>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Data)   
     {
             
         <div class="col-md-4 d-flex">
             <div class="imgRepresent"><img src="@Html.Raw("~/image/" + item.ImageName)" asp-append-version="true" width="250px" height="250px" /></div>
             <div class="info">
                 <div class="title">
-                    <a href="#"><strong style="font-size: 2em; color: #000">@Html.DisplayFor(modelItem => item.title)</strong></a>
+                    <a href=""><strong style="font-size: 2em; color: #000">@Html.DisplayFor(modelItem => item.title)</strong></a>
                 </div>
                 @Html.DisplayFor(modelItem => item.Description)
             </div>
@@ -36,3 +33,17 @@
         </div>
     }
 </p>
+<br />
+<cs-pager
+    cs-paging-pagenumber=(int)Model.PageNumber
+    cs-paging-totalitems=(int)Model.TotalItems
+    cs-paging-pagesize="1"
+    cs-pagenumber-param="pagenumber"
+    asp-controller=""
+    asp-action="IndexPost"
+    cs-pager-li-current-class="page-item-active"
+    cs-pager-li-other-class="page-item"
+    cs-pager-li-non-active-class="page-item-disabled"
+    cs-pager-link-current-class="page-link"
+    cs-pager-link-other-class="page-link"
+></cs-pager>

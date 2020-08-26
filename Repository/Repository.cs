@@ -45,7 +45,7 @@ namespace ManagementApp.Repository {
             }
 
         public IEnumerable<TEntity> GetAll() {
-            return DbSetEntity.ToList();
+            return DbSetEntity.AsNoTracking().ToList();
             }
 
         public void Remove(TEntity entity) {

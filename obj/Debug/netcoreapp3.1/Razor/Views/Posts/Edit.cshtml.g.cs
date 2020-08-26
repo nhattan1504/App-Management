@@ -27,7 +27,7 @@ using ManagementApp.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2070bea2ec2a370933cbb47475cf187901d2d1a0", @"/Views/Posts/Edit.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"25b7b2226ea58f2437c7f6886dacf876bb215d44", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8a735e59df789ebef954f0f21b5c03e639450d26", @"/Views/_ViewImports.cshtml")]
     public class Views_Posts_Edit : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ManagementApp.Models.Posts>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-danger"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
