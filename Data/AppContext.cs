@@ -10,7 +10,6 @@ namespace ManagementApp.Models {
         public AppContext(DbContextOptions<AppContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Posts> Postss { get; set; }
-        //public DbSet<Tag> Tags { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         //            if (!optionsBuilder.IsConfigured)
@@ -22,8 +21,6 @@ namespace ManagementApp.Models {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Posts>().ToTable("Posts");
-            //modelBuilder.Entity<Tag>().ToTable("Tag");
-
             }
         }
     }

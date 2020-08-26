@@ -1,0 +1,77 @@
+﻿@model ManagementApp.Models.Posts
+
+@{
+    ViewData["Title"] = "Edit";
+
+}
+
+<h1>Edit</h1>
+
+<h4>Posts</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="content" class="control-label"></label>
+                <textarea asp-for="content" id="textareaContent" class="form-control"></textarea>
+                <span asp-validation-for="content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="title" class="control-label"></label>
+                <input asp-for="title" class="form-control" required="required"/>
+                <span asp-validation-for="title" class="text-danger"></span>
+            </div>
+            <div>
+                <img src="@Html.Raw("~/image/" + Model.imageUrl)" asp-append-version="true" width="250px" height="250px" />
+            </div>
+            @*<div class="form-group">
+                <label asp-for="imageUrl" class="control-label"></label>
+                <input asp-for="imageUrl" class="form-control" />
+                <span asp-validation-for="imageUrl" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" accept="image/*"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" required="required"/>
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="isAccept" /> @Html.DisplayNameFor(model => model.isAccept)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+</div>
+
+<script src="~/lib/jquery.min.js"></script>
+<script src="~/lib/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    $(document).ready(function () {
+        CKEDITOR.config.width = 750,
+        CKEDITOR.replace('textareaContent',
+            {
+                height: 400,
+                filebrowserUploadUrl: "/product/upload_ckeditor",
+                filebrowserBrowseUrl: "/product/filebrowse"
+            });
+    })
+</script>

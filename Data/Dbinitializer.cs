@@ -31,14 +31,7 @@ namespace ManagementApp.Data {
                 context.Postss.Add(s);
                 }
             context.SaveChanges();
-            //var tags = new Tag[] {
-            //    new Tag{tagName="tan"}
-            //    };
-            //foreach (Tag s in tags)
-            //    {
-            //    context.Tags.Add(s);
-            //    }
-            //context.SaveChanges();
+            
             }
 
         }

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ManagementApp.Models.Posts>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/_LayoutUser.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tr style="background-color: #00b6e6">
+        <th style="width:7vw">
+            @*@Html.DisplayNameFor(model => model.title)*@
+            Title
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.imageUrl)*@
+            Image
+        </th>
+        <th style="width:25vw">
+            @*@Html.DisplayNameFor(model => model.description)*@
+            Description
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAccept)
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td style="width:7vw">
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    <img src="@Html.Raw("~/image/" + item.imageUrl)" asp-append-version="true" width="100px" height="100px" />
+                </td>
+                <td style="width:25vw">
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isAccept)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>

@@ -33,10 +33,10 @@ namespace ManagementApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("imageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("isAccept")
                         .HasColumnType("bit");
