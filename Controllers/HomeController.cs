@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ManagementApp.Models;
 using ManagementApp.WorkOfUnit;
+using cloudscribe.Pagination.Models;
 
 namespace ManagementApp.Controllers {
     public class HomeController : Controller {
@@ -17,9 +18,21 @@ namespace ManagementApp.Controllers {
             uow = new UnitOfWork(provider);
             }
 
-        public IActionResult IndexPost() {
-            var postUser = uow.Post.GetAll().Where(p => p.isAccept == true).ToList();
-            return View(postUser);
+
+        public IActionResult IndexPost(int pageSize = 3, int pageNumber = 3) {
+            int ExcludeRecords = (pageSize * pageNumber) - pageSize;
+            var postUser = uow.Post.Getpage().Where(p => p.isAccept == true).ToList()
+                            .Skip(ExcludeRecords).Take(pageSize);
+            var test = (double)uow.Post.Getpage().Count() / pageSize;
+            var totalItem = (int)Math.Ceiling(test);
+            var result = new PagedResult<Posts> {
+                Data = postUser.ToList(),
+                TotalItems = (long)totalItem,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+                };
+            return View(result);
+
             //return View();
             }
 

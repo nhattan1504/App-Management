@@ -87,6 +87,7 @@ namespace ManagementApp.Areas.Admin.Controllers
                 }
             else
                 {
+                var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
                 if (ModelState.IsValid)
                     {
                     string wwwRootPath = _hostEnvirontment.WebRootPath;
@@ -98,6 +99,7 @@ namespace ManagementApp.Areas.Admin.Controllers
                         {
                         await posts.ImageFile.CopyToAsync(fileStream);
                         }
+                    posts.Userid = userLogined.id;
                     uow.Post.Add(posts);
                     return Redirect("Create");
                     }
@@ -144,7 +146,7 @@ namespace ManagementApp.Areas.Admin.Controllers
                 {
                 try
                     {
-                    //if(posts.)
+                    var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
                     string wwwRootPath = _hostEnvirontment.WebRootPath;
                     string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
                     string extension = Path.GetExtension(posts.ImageFile.FileName);
@@ -154,6 +156,7 @@ namespace ManagementApp.Areas.Admin.Controllers
                         {
                         await posts.ImageFile.CopyToAsync(fileStream);
                         }
+                    posts.Userid = userLogined.id;
                     uow.Post.Update(posts);
                     }
                 catch (DbUpdateConcurrencyException)

@@ -8,11 +8,11 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table" style="background-color:white">
+<table class="table" style="background-color:white; padding:.5rem">
     <thead>
-        <tr>
+        <tr style="background-color: #00b6e6">
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
@@ -38,9 +38,10 @@
                 @Html.DisplayFor(modelItem => item.isAdmin)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+
             </td>
         </tr>
 }

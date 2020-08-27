@@ -47,6 +47,9 @@ namespace ManagementApp.Repository {
         public IEnumerable<TEntity> GetAll() {
             return DbSetEntity.ToList();
             }
+        public IEnumerable<TEntity> Getpage() {
+            return DbSetEntity.AsNoTracking().ToList();
+            }
 
         public void Remove(TEntity entity) {
             DbSetEntity.Remove(entity);

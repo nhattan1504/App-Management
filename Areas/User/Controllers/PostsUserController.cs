@@ -38,7 +38,7 @@ namespace ManagementApp.Areas.User.Controllers
                 return NotFound();
                 }
             var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
-            var postUser = uow.Post.GetAll().Where(p => p.User == userLogined).ToList();
+            var postUser = uow.Post.GetAll().Where(p => p.Userid == userLogined.id).ToList();
             return View("~/Areas/User/Views/Index.cshtml",postUser);
             }
         //Get: PostOfUser
@@ -87,35 +87,43 @@ namespace ManagementApp.Areas.User.Controllers
             //    {
             //    return NotFound();
             //    }
-            if (posts.content==null||posts.description==null||posts.title==null) {
-                TempData["Message"] = "Cant input space in element when create";
-                return View("~/Areas/User/Views/Create.cshtml");
-                }
-            else
-                {
-                ManagementApp.Models.User user = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
-
-                posts.User = user;
-                if (ModelState.IsValid)
+                if (HttpContext.Session.GetString("username") == null)
                     {
-                    string wwwRootPath = _hostEnvirontment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
-                    string extension = Path.GetExtension(posts.ImageFile.FileName);
-                    posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                        {
-                        await posts.ImageFile.CopyToAsync(fileStream);
-                        }
-                    uow.Post.Add(posts);
-                    return Redirect("/user/create");
+                    return NotFound();
                     }
-                return View(posts);
-                }
-            }
+                if (posts.content == null || posts.description == null || posts.title == null)
+                    {
+                    TempData["Message"] = "Cant input space in element when create";
+                    return View("~/Areas/User/Views/Create.cshtml");
+                    }
+                else
+                    {
+                var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
 
-        // GET: Posts/Edit/5
-        [Route("edit/{id}")]
+                if (ModelState.IsValid)
+                        {
+                        string wwwRootPath = _hostEnvirontment.WebRootPath;
+                        string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                        string extension = Path.GetExtension(posts.ImageFile.FileName);
+                        posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                            {
+                            await posts.ImageFile.CopyToAsync(fileStream);
+                            }
+                    posts.Userid = userLogined.id;
+
+                    uow.Post.Add(posts);
+                        return Redirect("Create");
+                        }
+                    return View(posts);
+                    }
+                }
+            
+                
+            
+            // GET: Posts/Edit/5
+            [Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id) {
             if (HttpContext.Session.GetString("username") == null)
                 {
@@ -131,7 +139,7 @@ namespace ManagementApp.Areas.User.Controllers
                 {
                 return NotFound();
                 }
-            return View(posts);
+            return View("~/Areas/User/Views/Edit.cshtml");
             }
 
         // POST: Posts/Edit/5
@@ -150,23 +158,22 @@ namespace ManagementApp.Areas.User.Controllers
                 return NotFound();
                 }
 
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+
             if (ModelState.IsValid)
                 {
-                try
+                string wwwRootPath = _hostEnvirontment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                string extension = Path.GetExtension(posts.ImageFile.FileName);
+                posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
                     {
+                    await posts.ImageFile.CopyToAsync(fileStream);
+                    }
+                posts.Userid = userLogined.id;
                     uow.Post.Update(posts);
-                    }
-                catch (DbUpdateConcurrencyException)
-                    {
-                    //if (!PostsExists(posts.id))
-                    //{
-                    //    return NotFound();
-                    //}
-                    //else
-                    //{
-                    //    throw;
-                    //}
-                    }
+                    
                 return RedirectToAction(nameof(Index));
                 }
             return View(posts);

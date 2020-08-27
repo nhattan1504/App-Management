@@ -2,7 +2,7 @@
 
 namespace ManagementApp.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,7 +33,7 @@ namespace ManagementApp.Migrations
                     imageUrl = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     description = table.Column<string>(type: "nvarchar(200)", nullable: true),
                     isAccept = table.Column<bool>(nullable: false),
-                    Userid = table.Column<int>(nullable: true)
+                    Userid = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,7 @@ namespace ManagementApp.Migrations
                         column: x => x.Userid,
                         principalTable: "User",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

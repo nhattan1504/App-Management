@@ -27,7 +27,7 @@ namespace ManagementApp.Models {
         public string description { get; set; }
         //public HttpPostAttribute ImageFile { get; set; }
         public bool isAccept { get; set; }
-        //public int Userid { get; set; }
+        public int Userid { get; set; }
         [ForeignKey("Userid")]
         public User User { get; set; }
         }

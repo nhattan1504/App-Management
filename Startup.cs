@@ -34,6 +34,7 @@ namespace ManagementApp {
             services.AddDbContext<Models.AppContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+            services.AddCloudscribePagination();
             }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,9 +58,9 @@ namespace ManagementApp {
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute(
-                    name: "areas",
-                    pattern: "{area}/{controller=Admin}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "areas",
+                //    pattern: "{area}/{controller=Admin}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=IndexPost}/{id?}");

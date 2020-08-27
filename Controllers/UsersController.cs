@@ -53,8 +53,30 @@ namespace ManagementApp.Controllers {
             //return View(user);
             return NotFound();
             }
+
+        public IActionResult Register() {
+            //var all = uow.Users.GetAll().Where(x=> x.email==user.email&&x.password==user.password).FirstOrDefault();
+            //if (all != null)
+            //    {
+            //    return RedirectToAction(nameof(Index));
+            //    }
+            return View();
+            }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("name,email,password,id,isAdmin=false")] ManagementApp.Models.User user) {
+            if (ModelState.IsValid)
+                {
+                //_context.Add(user);
+                uow.Users.Add(user);
+                //await _context.SaveChangesAsync();
+                return Redirect("Login");
+                }
+            return View(user);
+            }
         [Route("logout")]
         [HttpGet]
+        
         public IActionResult Logout() {
             HttpContext.Session.Remove("username");
             return Redirect("Home");

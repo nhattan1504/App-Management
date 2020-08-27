@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="cloudscribe.Pagination.Models" Version="1.1.0" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
@@ -31,6 +33,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="Service\" />
     <Folder Include="wwwroot\image\" />
+    <Folder Include="wwwroot\webfonts\" />
   </ItemGroup>
 
 </Project>
