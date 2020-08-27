@@ -31,10 +31,11 @@ namespace ManagementApp.Areas.Admin.Controllers {
         // GET: Users
         [Route("user")]
         public async Task<IActionResult> Index() {
-            //if (HttpContext.Session.GetString("username") == null)
-            //    {
-            //    return NotFound();
-            //    }
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
+                {
+                return NotFound();
+                }
             var list = uow.Users.GetAll();
             return View("~/Areas/Admin/Views/User/Index.cshtml",list);
             }
@@ -42,7 +43,8 @@ namespace ManagementApp.Areas.Admin.Controllers {
         // GET: Users/Details/5
         [Route("user/detail/{id}")]
         public async Task<IActionResult> Details(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -74,8 +76,9 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [HttpPost]
         [Route("user/create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("name,email,password,id,isAdmin")] ManagementApp.Models.User user) {
-            if (HttpContext.Session.GetString("username") == null)
+        public async Task<IActionResult> Create([Bind("name,email,password,id,isAdmin=false")] ManagementApp.Models.User user) {
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -91,7 +94,8 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [Route("user/edit/{id}")]
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -114,8 +118,9 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [HttpPost]
         [Route("user/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("name,email,password,id,isAdmin=false")] ManagementApp.Models.User user) {
-            if (HttpContext.Session.GetString("username") == null)
+        public async Task<IActionResult> Edit(int id, [Bind("name,email,password,id,isAdmin")] ManagementApp.Models.User user) {
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -150,7 +155,8 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [Route("user/delete/{id}")]
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -175,7 +181,8 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [Route("user/delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
