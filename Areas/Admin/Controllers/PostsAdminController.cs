@@ -162,6 +162,7 @@ namespace ManagementApp.Areas.Admin.Controllers
                 {
                 try
                     {
+<<<<<<< HEAD
                     //string wwwRootPath = _hostEnvirontment.WebRootPath;
                     //string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
                     //string extension = Path.GetExtension(posts.ImageFile.FileName);
@@ -172,6 +173,17 @@ namespace ManagementApp.Areas.Admin.Controllers
                     //    await posts.ImageFile.CopyToAsync(fileStream);
                     //    }
                     //posts.imageUrl = Model.imageUrl;
+=======
+                    string wwwRootPath = _hostEnvirontment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                    string extension = Path.GetExtension(posts.ImageFile.FileName);
+                    posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                        await posts.ImageFile.CopyToAsync(fileStream);
+                        }
+>>>>>>> c26caaf8b1fe5357db9b918f5a8a15797cf6aa98
                     posts.Userid = userLogined.id;
                     uow.Post.Update(posts);
                     }
