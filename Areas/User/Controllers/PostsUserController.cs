@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ManagementApp.Areas.User.Controllers
 {
@@ -33,11 +34,11 @@ namespace ManagementApp.Areas.User.Controllers
         // GET: Posts
         [Route("index")]
         public async Task<IActionResult> Index() {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
                 {
                 return NotFound();
                 }
-            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
             var postUser = uow.Post.GetAll().Where(p => p.Userid == userLogined.id).ToList();
             return View("~/Areas/User/Views/Index.cshtml",postUser);
             }
@@ -51,7 +52,8 @@ namespace ManagementApp.Areas.User.Controllers
         // GET: Posts/Details/5
         [Route("details/{id}")]
         public async Task<IActionResult> Details(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
                 {
                 return NotFound();
                 }
@@ -67,14 +69,19 @@ namespace ManagementApp.Areas.User.Controllers
                 return NotFound();
                 }
 
-            return View(posts);
+            return View("~/Areas/User/Views/Details.cshtml",posts);
             }
 
         // GET: Posts/Create
         [Route("create")]
         public IActionResult Create() {
-            return View("~/Areas/User/Views/Create.cshtml");
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin)) {
+                return NotFound();
+                }
+                return View("~/Areas/User/Views/Create.cshtml");
             }
+        
 
         // POST: Posts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -83,11 +90,12 @@ namespace ManagementApp.Areas.User.Controllers
         [Route("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,content,title,ImageFile,description,isAccept=false")] Posts posts) {
-            //if (HttpContext.Session.GetString("username") == null)
-            //    {
-            //    return NotFound();
-            //    }
-                if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
+                {
+                return NotFound();
+                }
+            if (HttpContext.Session.GetString("username") == null)
                     {
                     return NotFound();
                     }
@@ -98,8 +106,6 @@ namespace ManagementApp.Areas.User.Controllers
                     }
                 else
                     {
-                var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
-
                 if (ModelState.IsValid)
                         {
                         string wwwRootPath = _hostEnvirontment.WebRootPath;
@@ -125,7 +131,8 @@ namespace ManagementApp.Areas.User.Controllers
             // GET: Posts/Edit/5
             [Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
                 {
                 return NotFound();
                 }
@@ -149,7 +156,8 @@ namespace ManagementApp.Areas.User.Controllers
         [Route("edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,content,title,imageUrl,description,isAccept=false")] Posts posts) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
                 {
                 return NotFound();
                 }
@@ -157,9 +165,6 @@ namespace ManagementApp.Areas.User.Controllers
                 {
                 return NotFound();
                 }
-
-            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
-
             if (ModelState.IsValid)
                 {
                 string wwwRootPath = _hostEnvirontment.WebRootPath;
@@ -176,13 +181,14 @@ namespace ManagementApp.Areas.User.Controllers
                     
                 return RedirectToAction(nameof(Index));
                 }
-            return View(posts);
+            return View("~/Areas/User/Views/Edit.cshtml",posts);
             }
 
         // GET: Posts/Delete/5
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
                 {
                 return NotFound();
                 }
@@ -205,7 +211,8 @@ namespace ManagementApp.Areas.User.Controllers
         [Route("delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin))
                 {
                 return NotFound();
                 }

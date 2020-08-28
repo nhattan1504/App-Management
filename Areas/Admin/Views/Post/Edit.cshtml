@@ -20,25 +20,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="title" class="control-label"></label>
-                <input asp-for="title" class="form-control" required="required"/>
+                <input asp-for="title" class="form-control" required="required" />
                 <span asp-validation-for="title" class="text-danger"></span>
             </div>
-            <div>
-                <img src="@Html.Raw("~/image/" + Model.imageUrl)" asp-append-version="true" width="250px" height="250px" />
-            </div>
-            @*<div class="form-group">
-                <label asp-for="imageUrl" class="control-label"></label>
-                <input asp-for="imageUrl" class="form-control" />
-                <span asp-validation-for="imageUrl" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" accept="image/*"/>
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
+            
+        <div class="form-group">
+            <label asp-for="imageUrl" class="control-label"></label>
+            <input asp-for="imageUrl" class="form-control" hidden="hidden" />
+            <img src="@Html.Raw("~/image/" + Model.imageUrl)" asp-append-version="true" width="250px" height="250px" />
+            <span asp-validation-for="imageUrl" class="text-danger"></span>
+        </div>
+            
             <div class="form-group">
                 <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" required="required"/>
+                <input asp-for="description" class="form-control" required="required" />
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

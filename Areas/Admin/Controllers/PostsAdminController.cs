@@ -28,26 +28,33 @@ namespace ManagementApp.Areas.Admin.Controllers
 
         //[Microsoft.AspNetCore.Authorization.AllowAnonymous]
         // GET: Posts
+        [Route("index")]
+        public IActionResult IndexHomePage() {
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
+                {
+                return NotFound();
+                }
+            ViewData["countPost"] = uow.Post.GetAll().Count();
+            ViewData["countUser"] = uow.Users.GetAll().Count();
+            return View("~/Areas/Admin/Views/Index.cshtml");
+            }
         [Route("post")]
         public async Task<IActionResult> Index() {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
             return View("~/Areas/Admin/Views/Post/Index.cshtml", uow.Post.GetAll());
             }
-        //Get: PostOfUser
-        public async Task<IActionResult> IndexUser() {
-            var postUser = uow.Post.GetAll().Where(p => p.isAccept == true).ToList();
-            return View(postUser);
-            }
         // GET: Posts/Details/5
         [Route("post/details/{id}")]
         public async Task<IActionResult> Details(int id) {
-            //if (HttpContext.Session.GetString("username") == null)
-            //    {
-            //    return NotFound();
-            //    }
+            if (HttpContext.Session.GetString("username") == null)
+                {
+                return NotFound();
+                }
             if (id == null)
                 {
                 return NotFound();
@@ -66,6 +73,12 @@ namespace ManagementApp.Areas.Admin.Controllers
         // GET: Posts/Create
         [Route("post/create")]
         public IActionResult Create() {
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null)||(userLogined.isAdmin==false))
+                {
+                return NotFound();
+                }
+            
             return View("~/Areas/Admin/Views/Post/Create.cshtml");
             }
 
@@ -75,8 +88,9 @@ namespace ManagementApp.Areas.Admin.Controllers
         [HttpPost]
         [Route("post/create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,content,title,ImageFile,description,isAccept")] Posts posts) {
-            if (HttpContext.Session.GetString("username") == null)
+        public async Task<IActionResult> Create( Posts posts) {
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -87,7 +101,6 @@ namespace ManagementApp.Areas.Admin.Controllers
                 }
             else
                 {
-                var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
                 if (ModelState.IsValid)
                     {
                     string wwwRootPath = _hostEnvirontment.WebRootPath;
@@ -99,6 +112,7 @@ namespace ManagementApp.Areas.Admin.Controllers
                         {
                         await posts.ImageFile.CopyToAsync(fileStream);
                         }
+                    posts.isAccept = true;
                     posts.Userid = userLogined.id;
                     uow.Post.Add(posts);
                     return Redirect("Create");
@@ -109,7 +123,8 @@ namespace ManagementApp.Areas.Admin.Controllers
         // GET: Posts/Edit/5
         [Route("post/edit/{id}")]
         public async Task<IActionResult> Edit(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -133,7 +148,8 @@ namespace ManagementApp.Areas.Admin.Controllers
         [Route("post/edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,content,title,imageUrl,ImageFile,description,isAccept")] Posts posts) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -146,16 +162,16 @@ namespace ManagementApp.Areas.Admin.Controllers
                 {
                 try
                     {
-                    var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
-                    string wwwRootPath = _hostEnvirontment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
-                    string extension = Path.GetExtension(posts.ImageFile.FileName);
-                    posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                        {
-                        await posts.ImageFile.CopyToAsync(fileStream);
-                        }
+                    //string wwwRootPath = _hostEnvirontment.WebRootPath;
+                    //string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                    //string extension = Path.GetExtension(posts.ImageFile.FileName);
+                    //posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    //string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                    //using (var fileStream = new FileStream(path, FileMode.Create))
+                    //    {
+                    //    await posts.ImageFile.CopyToAsync(fileStream);
+                    //    }
+                    //posts.imageUrl = Model.imageUrl;
                     posts.Userid = userLogined.id;
                     uow.Post.Update(posts);
                     }
@@ -170,7 +186,8 @@ namespace ManagementApp.Areas.Admin.Controllers
         // GET: Posts/Delete/5
         [Route("post/delete/{id}")]
         public async Task<IActionResult> Delete(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }
@@ -193,7 +210,8 @@ namespace ManagementApp.Areas.Admin.Controllers
         [Route("post/delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
-            if (HttpContext.Session.GetString("username") == null)
+            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
                 }

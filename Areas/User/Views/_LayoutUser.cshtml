@@ -3,9 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
     @*Title Page*@
     <title>Dashboard</title>
 
@@ -41,7 +39,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="/images/logo.png" alt="CoolAdmin" />
+                            <img src="/images/logo.webp" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -60,7 +58,7 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-action="index"> <i class="fas fa-user"></i>Dashboard</a>
+                            <a asp-action="index"> <i class="fas fa-user"></i>Post</a>
                         </li>
                         <li>
                             <a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>
@@ -87,7 +85,7 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-action="index"> <i class="fas fa-user"></i>Dashboard</a>
+                            <a asp-action="index"> <i class="fas fa-user"></i>Post</a>
                         </li>
                         <li>
                             <a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log out</a>
@@ -105,7 +103,7 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt=@Context.Session.GetString("username") />
+                                            <i class="far fa-user fa-3x"></i>
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">@Context.Session.GetString("username")</a>

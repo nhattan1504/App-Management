@@ -26,7 +26,6 @@ namespace ManagementApp.Repository {
             DbSetEntity.Add(entity);
             Context.SaveChanges();
             }
-
         public void AddRange(IEnumerable<TEntity> entities) {
             DbSetEntity.AddRange(entities);
             }
@@ -42,6 +41,12 @@ namespace ManagementApp.Repository {
 
         public TEntity Get(int id) {
             return DbSetEntity.Find(id);
+            }
+
+        public TEntity GetByIdNoTracking(Expression<Func<TEntity, bool>> predicate) {
+            var item = DbSetEntity.AsNoTracking().Where(predicate).FirstOrDefault();
+            Context.SaveChanges();
+            return item;
             }
 
         public IEnumerable<TEntity> GetAll() {

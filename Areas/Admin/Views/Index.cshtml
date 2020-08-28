@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/LayoutAdmin.cshtml";
+    Layout = "~/Areas/Admin/Views/_LayoutAdmin.cshtml";
     //Layout = "~/Views/Shared/_LayoutPost.cshtml";
 }
 
@@ -26,8 +26,8 @@
                                         <i class="zmdi zmdi-account-o"></i>
                                     </div>
                                     <div class="text">
-                                        <h2>10368</h2>
-                                        <span>members online</span>
+                                        <h2>@ViewData["countUser"]</h2>
+                                        <span>members</span>
                                     </div>
                                 </div>
                                 <!-- <div class="overview-chart">
@@ -44,7 +44,7 @@
                                         <i class="zmdi zmdi-shopping-cart"></i>
                                     </div>
                                     <div class="text">
-                                        <h2>388,688</h2>
+                                        <h2>@ViewData["countPost"]</h2>
                                         <span>items solid</span>
                                     </div>
                                 </div>
@@ -62,8 +62,8 @@
                                         <i class="zmdi zmdi-calendar-note"></i>
                                     </div>
                                     <div class="text">
-                                        <h2>1,086</h2>
-                                        <span>this week</span>
+                                        <h2>@ViewData["countPost"]</h2>
+                                        <span>Post</span>
                                     </div>
                                 </div>
                                 <!-- <div class="overview-chart">

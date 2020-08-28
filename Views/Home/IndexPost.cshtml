@@ -1,13 +1,4 @@
-﻿@*@{
-        ViewData["Title"] = "Home Page";
-        Layout = "~/Views/Shared/_LayoutPost.cshtml";
-
-    }
-
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>*@
+﻿
 @model cloudscribe.Pagination.Models.PagedResult<Posts>
 
 @*@model IEnumerable<ManagementApp.Models.Posts>*@
@@ -19,24 +10,23 @@
 
 <h1 style="text-align: center">Index</h1>
 <div style="display:flex;flex-direction:column">
-
     <div>
-        @foreach (var item in Model.Data)
-            {
-            <div class="col-md-4 d-flex">
-                <div class="imgRepresent"><img src="@Html.Raw("/image/" + item.imageUrl)" asp-append-version="true" width="250px" height="250px" /></div>
-                <div class="info">
-                    <div class="title">
-                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.id"><strong style="font-size: 2em; color: #000">@Html.DisplayFor(modelItem => item.title)</strong></a>
+        <div class="d-flex">
+            @foreach (var item in Model.Data)
+                {
+                <div class="col-md-4 d-flex flex-column">
+                    <div class="imgRepresent"><img src="@Html.Raw("/image/" + item.imageUrl)" asp-append-version="true" width="250px" height="250px" /></div>
+                    <div class="info">
+                        <div class="title">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.id"><strong style="font-size: 2em; color: #000">@Html.DisplayFor(modelItem => item.title)</strong></a>
+                        </div>
+                        @Html.DisplayFor(modelItem => item.description)
                     </div>
-                    @Html.DisplayFor(modelItem => item.description)
                 </div>
-                <br />
-                <br />
-            </div>
-            }
+                }
+        </div>
     </div>
-    <div style="text-align:center">
+    <div style="display:flex;justify-content:center">
         <cs-pager cs-paging-pagenumber=(int)Model.PageNumber
                   cs-paging-totalitems=(int)Model.TotalItems
                   cs-paging-pagesize="1"

@@ -27,11 +27,10 @@ namespace ManagementApp.Controllers {
         // GET: Users
         //[Route("login")]
         public IActionResult Login() {
-            //var all = uow.Users.GetAll().Where(x=> x.email==user.email&&x.password==user.password).FirstOrDefault();
-            //if (all != null)
-            //    {
-            //    return RedirectToAction(nameof(Index));
-            //    }
+            if (HttpContext.Session.GetString("username") != null)
+                {
+                return NotFound();
+                }
             return View();
             }
         [HttpPost]
@@ -43,7 +42,7 @@ namespace ManagementApp.Controllers {
                 HttpContext.Session.SetString("username", all.name);
                 if (all.isAdmin)
                     {
-                    return Redirect("/admin/post");
+                    return Redirect("/admin/index");
                     }
                 else return Redirect("/user/index");
                 //return RedirectToAction(nameof(Index));
@@ -65,6 +64,7 @@ namespace ManagementApp.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("name,email,password,id,isAdmin=false")] ManagementApp.Models.User user) {
+            
             if (ModelState.IsValid)
                 {
                 //_context.Add(user);

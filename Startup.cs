@@ -63,7 +63,7 @@ namespace ManagementApp {
                 //    pattern: "{area}/{controller=Admin}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=IndexPost}/{id?}");
+                    pattern: "{controller=Home}/{action=IndexPost}/{pageNumber=1}");
             });
 
             
