@@ -64,7 +64,12 @@ namespace ManagementApp.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("name,email,password,id,isAdmin=false")] ManagementApp.Models.User user) {
-            
+            var existUser = uow.Users.GetAll().Where(s => s.name == user.name||s.email==user.email).FirstOrDefault();
+            if (existUser!=null)
+                {
+                TempData["Register"] = "username or email is exist";
+                return Redirect("Register");
+                }
             if (ModelState.IsValid)
                 {
                 //_context.Add(user);

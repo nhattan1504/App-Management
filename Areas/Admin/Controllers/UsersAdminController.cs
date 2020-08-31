@@ -27,7 +27,7 @@ namespace ManagementApp.Areas.Admin.Controllers {
         //public UsersController() {
         //    uow = new UnitOfWork(new AppContext());
         //    }
-        
+
         // GET: Users
         [Route("user")]
         public async Task<IActionResult> Index() {
@@ -37,7 +37,7 @@ namespace ManagementApp.Areas.Admin.Controllers {
                 return NotFound();
                 }
             var list = uow.Users.GetAll();
-            return View("~/Areas/Admin/Views/User/Index.cshtml",list);
+            return View("~/Areas/Admin/Views/User/Index.cshtml", list);
             }
 
         // GET: Users/Details/5
@@ -62,7 +62,7 @@ namespace ManagementApp.Areas.Admin.Controllers {
                 return NotFound();
                 }
 
-            return View("~/Areas/Admin/Views/User/Details.cshtml",user);
+            return View("~/Areas/Admin/Views/User/Details.cshtml", user);
             }
         [Route("user/create")]
         // GET: Users/Create
@@ -81,6 +81,11 @@ namespace ManagementApp.Areas.Admin.Controllers {
             if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
+                }
+            if (uow.Users.GetAll().Where(s => s.name == user.name|| s.email == user.email).FirstOrDefault()!=null)
+                {
+                TempData["ErrorCreate"] = "user name or email is exist, Please choose another name or email";
+                return View("~/Areas/Admin/Views/User/Create.cshtml"); ;
                 }
             if (ModelState.IsValid)
                 {
@@ -118,16 +123,25 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [HttpPost]
         [Route("user/edit/{id}")]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
         public async Task<IActionResult> Edit(int id, [Bind("id,name,email,password,isAdmin")] ManagementApp.Models.User user) {
             var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
+            if(uow.Users.GetAll().Where(p => p.name == user.name).FirstOrDefault()!=null)
+                {
+                TempData["nameExist"] = "username is exist, plz choose another name";
+                 return View("~/Areas/Admin/Views/User/Edit.cshtml", user);
+                }
+            else if (uow.Users.GetAll().Where(p => p.email == user.email).FirstOrDefault() != null)
+                {
+                TempData["emailExist"] = "username is exist, plz choose another email";
+                return View("~/Areas/Admin/Views/User/Edit.cshtml", user);
+                }
+            if (userLogined.id == id)
+                {
+                HttpContext.Session.SetString("username",user.name);
+                }
             var useritem = uow.Users.Get(id);
-
             user.id = id;
-=======
-        public async Task<IActionResult> Edit(int id, [Bind("name,email,password,id,isAdmin")] ManagementApp.Models.User user) {
-            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
->>>>>>> c26caaf8b1fe5357db9b918f5a8a15797cf6aa98
+       
             if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
@@ -145,7 +159,7 @@ namespace ManagementApp.Areas.Admin.Controllers {
                     useritem.name = user.name;
                     useritem.password = user.password;
                     useritem.isAdmin = user.isAdmin;
-                    uow.Users.Update(user);
+                    uow.Users.Update(useritem);
                     //_context.Update(user);
                     //await _context.SaveChangesAsync();
                     }

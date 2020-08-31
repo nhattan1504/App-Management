@@ -118,7 +118,6 @@ namespace ManagementApp.Areas.User.Controllers
                             await posts.ImageFile.CopyToAsync(fileStream);
                             }
                     posts.Userid = userLogined.id;
-
                     uow.Post.Add(posts);
                         return Redirect("Create");
                         }
@@ -146,7 +145,7 @@ namespace ManagementApp.Areas.User.Controllers
                 {
                 return NotFound();
                 }
-            return View("~/Areas/User/Views/Edit.cshtml");
+            return View("~/Areas/User/Views/Edit.cshtml",posts);
             }
 
         // POST: Posts/Edit/5
@@ -167,15 +166,15 @@ namespace ManagementApp.Areas.User.Controllers
                 }
             if (ModelState.IsValid)
                 {
-                string wwwRootPath = _hostEnvirontment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
-                string extension = Path.GetExtension(posts.ImageFile.FileName);
-                posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                    await posts.ImageFile.CopyToAsync(fileStream);
-                    }
+                //string wwwRootPath = _hostEnvirontment.WebRootPath;
+                //string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                //string extension = Path.GetExtension(posts.ImageFile.FileName);
+                //posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                //string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                //using (var fileStream = new FileStream(path, FileMode.Create))
+                //    {
+                //    await posts.ImageFile.CopyToAsync(fileStream);
+                //    }
                 posts.Userid = userLogined.id;
                     uow.Post.Update(posts);
                     

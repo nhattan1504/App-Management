@@ -4,84 +4,164 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutPost.cshtml";
 }
-<div class="row">
-    <div class="left_content col-md-8 col-xs-12">
-        <div class="title_post">
-            @Html.DisplayFor(model => model.title)
+@*<div class="row">
+        <div class="left_content col-md-8 col-xs-12">
+            <div class="title_post">
+                @Html.DisplayFor(model => model.title)
+            </div>
+            <div class="author">
+                <a href="#" style="color: #000">
+                    <img src="~/images/about-image-150x150.jpg" alt="avt" class="author-avt mr-2">
+                    By <strong>Armin Vans</strong> August 7, 2019
+                </a>
+            </div>
+            <div class="social d-flex">
+                <div class="btn btn-fb">
+                    <i class="fab fa-facebook-f"></i>
+                    <span class="separate"></span>
+                    <span class="social-text">Facebook</span>
+                </div>
+                <div class="btn btn-twitter">
+                    <i class="fab fa-twitter"></i>
+                    <span class="separate"></span>
+                    <span class="social-text">Twitter</span>
+                </div>
+                <div class="btn btn-pinterest">
+                    <i class="fab fa-pinterest-p"></i>
+                    <span class="separate"></span>
+                    <span class="social-text">Pinterest</span>
+                </div>
+            </div>
+            <div class="main">
+                <div class="representImg">
+                    <img src="@Html.Raw("/image/" + Model.imageUrl)" alt="representImage" style="width:100%;height:100%">
+                </div>
+                <div class="decription">
+                    <p class="text-description">
+                        @Html.Raw(Model.content)
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="author">
-            <a href="#" style="color: #000">
-                <img src="~/images/about-image-150x150.jpg" alt="avt" class="author-avt mr-2">
-                By <strong>Armin Vans</strong> August 7, 2019
-            </a>
+        <div class="right-content col-md-4 col-xs-12">
+            <div class="advertisement">
+                <img src="~/images/newspaper-rec300c.jpg" alt="advertisement">
+            </div>
+            <div class="title_most_popular">
+                <span class="text_popular"> MOST POPULAR </span>
+            </div>
+            <div class="content_popular">
+                <div class="component_popular row">
+                    <div class="img_popular col-md-4">
+                        <img src="~/images/69-696x464.jpg" alt="#">
+                    </div>
+                    <div class="title_popular col-md-8">
+                        <a href="#"> Study 2020: Fake Engagement is Only Half the Problem </a>
+                    </div>
+                </div>
+                <div class="component_popular row">
+                    <div class="img_popular col-md-4">
+                        <img src="~/images/68-696x464.jpg" alt="#">
+                    </div>
+                    <div class="title_popular col-md-8">
+                        <a href="#"> What Do I Need to Make It in the World of Business? </a>
+                    </div>
+                </div>
+                <div class="component_popular row">
+                    <div class="img_popular col-md-4">
+                        <img src="~/images/67-696x464.jpg" alt="#">
+                    </div>
+                    <div class="title_popular col-md-8">
+                        <a href="#"> Ecommerce Brands Tend to Create Strong Communities </a>
+                    </div>
+                </div>
+                <div class="component_popular row">
+                    <div class="img_popular col-md-4">
+                        <img src="~/images/66-696x465.jpg" alt="#">
+                    </div>
+                    <div class="title_popular col-md-8">
+                        <a href="#"> Top 10 Interior Design in 2020 New York Business </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="social d-flex">
-            <div class="btn btn-fb">
-                <i class="fab fa-facebook-f"></i>
-                <span class="separate"></span>
-                <span class="social-text">Facebook</span>
-            </div>
-            <div class="btn btn-twitter">
-                <i class="fab fa-twitter"></i>
-                <span class="separate"></span>
-                <span class="social-text">Twitter</span>
-            </div>
-            <div class="btn btn-pinterest">
-                <i class="fab fa-pinterest-p"></i>
-                <span class="separate"></span>
-                <span class="social-text">Pinterest</span>
-            </div>
+    </div>*@
+<div class="left_content">
+    <div class="title_post">
+        @Html.DisplayFor(model => model.title)
+    </div>
+    <div class="author">
+        <a href="#">
+            <img src="/images/about-image-150x150.jpg" alt="avt" class="author-avt">
+        </a>
+        By <strong>Armin Vans</strong> August 7, 2019
+    </div>
+    <div class="social d-flex">
+        <div class="btn btn-fb">
+            <i class="fab fa-facebook-f"></i>
+            <span class="separate"></span>
+            <span class="social-text">Facebook</span>
         </div>
-        <div class="main">
-            <div class="representImg">
-                <img src="@Html.Raw("/image/" + Model.imageUrl)" alt="representImage" style="width:100%;height:100%">
-            </div>
-            <div class="decription">
-                <p class="text-description">
-                    @Html.Raw(Model.content)
-                </p>
-            </div>
+        <div class="btn btn-twitter">
+            <i class="fab fa-twitter"></i>
+            <span class="separate"></span>
+            <span class="social-text">Twitter</span>
+        </div>
+        <div class="btn btn-pinterest">
+            <i class="fab fa-pinterest-p"></i>
+            <span class="separate"></span>
+            <span class="social-text">Pinterest</span>
         </div>
     </div>
-    <div class="right-content col-md-4 col-xs-12">
-        <div class="advertisement">
-            <img src="~/images/newspaper-rec300c.jpg" alt="advertisement">
+    <div class="main">
+        <div class="representImg">
+            <img src="@Html.Raw("/image/" + Model.imageUrl)" alt="representImage">
         </div>
-        <div class="title_most_popular">
-            <span class="text_popular"> MOST POPULAR </span>
+        <div class="decription">
+            <p class="text-description">
+                @Html.Raw(Model.content)
+            </p>
         </div>
-        <div class="content_popular">
-            <div class="component_popular row">
-                <div class="img_popular col-md-4">
-                    <img src="~/images/69-696x464.jpg" alt="#">
-                </div>
-                <div class="title_popular col-md-8">
-                    <a href="#"> Study 2020: Fake Engagement is Only Half the Problem </a>
-                </div>
+    </div>
+</div>
+<div class="right-content">
+    <div class="advertisement">
+        <img src="/images/newspaper-rec300c.jpg" alt="advertisement">
+    </div>
+    <div class="title_most_popular">
+        <span class="text_popular"> MOST POPULAR </span>
+    </div>
+    <div class="content_popular">
+        <div class="component_popular">
+            <div class="img_popular">
+                <img src="/images/69-696x464.jpg" alt="#">
             </div>
-            <div class="component_popular row">
-                <div class="img_popular col-md-4">
-                    <img src="~/images/68-696x464.jpg" alt="#">
-                </div>
-                <div class="title_popular col-md-8">
-                    <a href="#"> What Do I Need to Make It in the World of Business? </a>
-                </div>
+            <div class="title_popular">
+                <a href="#"> Study 2020: Fake Engagement is Only Half the Problem </a>
             </div>
-            <div class="component_popular row">
-                <div class="img_popular col-md-4">
-                    <img src="~/images/67-696x464.jpg" alt="#">
-                </div>
-                <div class="title_popular col-md-8">
-                    <a href="#"> Ecommerce Brands Tend to Create Strong Communities </a>
-                </div>
+        </div>
+        <div class="component_popular">
+            <div class="img_popular">
+                <img src="/images/68-696x464.jpg" alt="#">
             </div>
-            <div class="component_popular row">
-                <div class="img_popular col-md-4">
-                    <img src="~/images/66-696x465.jpg" alt="#">
-                </div>
-                <div class="title_popular col-md-8">
-                    <a href="#"> Top 10 Interior Design in 2020 New York Business </a>
-                </div>
+            <div class="title_popular">
+                <a href="#"> What Do I Need to Make It in the World of Business? </a>
+            </div>
+        </div>
+        <div class="component_popular">
+            <div class="img_popular">
+                <img src="/images/67-696x464.jpg" alt="#">
+            </div>
+            <div class="title_popular">
+                <a href="#"> Ecommerce Brands Tend to Create Strong Communities </a>
+            </div>
+        </div>
+        <div class="component_popular">
+            <div class="img_popular">
+                <img src="/images/66-696x465.jpg" alt="#">
+            </div>
+            <div class="title_popular">
+                <a href="#"> Top 10 Interior Design in 2020 New York Business </a>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ using ManagementApp.WorkOfUnit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Web.WebPages;
 
 namespace ManagementApp.Areas.Admin.Controllers
 {
@@ -106,18 +107,32 @@ namespace ManagementApp.Areas.Admin.Controllers
                     string wwwRootPath = _hostEnvirontment.WebRootPath;
                     string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
                     string extension = Path.GetExtension(posts.ImageFile.FileName);
-                    posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                        {
-                        await posts.ImageFile.CopyToAsync(fileStream);
-                        }
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    var pathresult = uploadfile(posts.ImageFile, fileName);
+                    posts.imageUrl = pathresult;
                     posts.isAccept = true;
                     posts.Userid = userLogined.id;
                     uow.Post.Add(posts);
                     return Redirect("Create");
                     }
                 return View(posts);
+                }
+            }
+
+        public string uploadfile(IFormFile file, string filename) {
+            try
+                {
+                string wwwRootPath = _hostEnvirontment.WebRootPath;
+                string path = Path.Combine(wwwRootPath + "/image/", filename);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                     file.CopyTo(fileStream);
+                    }
+                return filename;
+                }
+            catch(Exception ex)
+                {
+                return "";
                 }
             }
         // GET: Posts/Edit/5
@@ -147,7 +162,7 @@ namespace ManagementApp.Areas.Admin.Controllers
         [HttpPost]
         [Route("post/edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,content,title,imageUrl,ImageFile,description,isAccept")] Posts posts) {
+        public async Task<IActionResult> Edit(int id, [Bind("id,content,ImageFile,title,imageUrl,description,isAccept")] Posts posts) {
             var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
             if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
@@ -162,28 +177,23 @@ namespace ManagementApp.Areas.Admin.Controllers
                 {
                 try
                     {
-<<<<<<< HEAD
-                    //string wwwRootPath = _hostEnvirontment.WebRootPath;
-                    //string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
-                    //string extension = Path.GetExtension(posts.ImageFile.FileName);
-                    //posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    //string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                    //using (var fileStream = new FileStream(path, FileMode.Create))
-                    //    {
-                    //    await posts.ImageFile.CopyToAsync(fileStream);
-                    //    }
-                    //posts.imageUrl = Model.imageUrl;
-=======
                     string wwwRootPath = _hostEnvirontment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
-                    string extension = Path.GetExtension(posts.ImageFile.FileName);
-                    posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    if (posts.ImageFile != null)
                         {
-                        await posts.ImageFile.CopyToAsync(fileStream);
+                        string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                        string extension = Path.GetExtension(posts.ImageFile.FileName);
+                        fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        //string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                        //using (var fileStream = new FileStream(path, FileMode.Create))
+                        //    {
+                        //    await posts.ImageFile.CopyToAsync(fileStream);
+                        //    }
+                        var pathresult = uploadfile(posts.ImageFile, fileName);
+                        if (!string.IsNullOrEmpty(pathresult))
+                            {
+                            posts.imageUrl = pathresult;
+                            };
                         }
->>>>>>> c26caaf8b1fe5357db9b918f5a8a15797cf6aa98
                     posts.Userid = userLogined.id;
                     uow.Post.Update(posts);
                     }

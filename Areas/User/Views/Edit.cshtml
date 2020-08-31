@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Areas/Admin/Views/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/User/Views/_LayoutUser.cshtml";
 }
 
 <h1>Edit</h1>
@@ -25,9 +25,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="imageUrl" class="control-label"></label>
-                <br/>
                 <input asp-for="imageUrl" class="form-control" hidden="hidden" />
-                <img src="@Html.Raw("~/image/" + Model.imageUrl)" asp-append-version="true" width="250px" height="250px" />
+                <img src="@Html.Raw("~/image/" + Model.imageUrl)" asp-append-version="true" width="250" height="250" />
                 <span asp-validation-for="imageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +34,7 @@
                 <input asp-for="description" class="form-control" required="required" />
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check" hidden="hidden">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="isAccept" /> @Html.DisplayNameFor(model => model.isAccept)
                 </label>
@@ -57,3 +56,15 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    $(document).ready(function () {
+        CKEDITOR.config.width = 750,
+            CKEDITOR.replace('textareaContent',
+                {
+                    height: 400,
+                    filebrowserUploadUrl: "/product/upload_ckeditor",
+                    filebrowserBrowseUrl: "/product/filebrowse"
+                });
+    })
+</script>
