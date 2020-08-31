@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using System.Data.Entity.Infrastructure;
 
 namespace ManagementApp.Areas.Admin.Controllers {
     [Area("Admin")]
@@ -141,7 +142,6 @@ namespace ManagementApp.Areas.Admin.Controllers {
                 }
             var useritem = uow.Users.Get(id);
             user.id = id;
-       
             if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
@@ -153,8 +153,7 @@ namespace ManagementApp.Areas.Admin.Controllers {
 
             if (ModelState.IsValid)
                 {
-                try
-                    {
+                
                     useritem.email = user.email;
                     useritem.name = user.name;
                     useritem.password = user.password;
@@ -162,18 +161,7 @@ namespace ManagementApp.Areas.Admin.Controllers {
                     uow.Users.Update(useritem);
                     //_context.Update(user);
                     //await _context.SaveChangesAsync();
-                    }
-                catch (DbUpdateConcurrencyException)
-                    {
-                    //if (!UserExists(user.id))
-                    //{
-                    //    return NotFound();
-                    //}
-                    //else
-                    //{
-                    //    throw;
-                    //}
-                    }
+                   
                 return RedirectToAction(nameof(Index));
                 }
             return View("~/Areas/Admin/Views/User/Edit.cshtml",user);

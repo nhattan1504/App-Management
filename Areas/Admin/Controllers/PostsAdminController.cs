@@ -4,13 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using ManagementApp.Models;
 using ManagementApp.WorkOfUnit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using System.Web.WebPages;
 
 namespace ManagementApp.Areas.Admin.Controllers
 {
@@ -175,8 +173,6 @@ namespace ManagementApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
                 {
-                try
-                    {
                     string wwwRootPath = _hostEnvirontment.WebRootPath;
                     if (posts.ImageFile != null)
                         {
@@ -194,12 +190,20 @@ namespace ManagementApp.Areas.Admin.Controllers
                             posts.imageUrl = pathresult;
                             };
                         }
+
+                    //string wwwRootPath = _hostEnvirontment.WebRootPath;
+                    //string fileName = Path.GetFileNameWithoutExtension(posts.ImageFile.FileName);
+                    //string extension = Path.GetExtension(posts.ImageFile.FileName);
+                    //posts.imageUrl = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    //string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                    //using (var fileStream = new FileStream(path, FileMode.Create))
+                    //    {
+                    //    await posts.ImageFile.CopyToAsync(fileStream);
+                    //    }
+                    //posts.imageUrl = Model.imageUrl;
+
                     posts.Userid = userLogined.id;
-                    uow.Post.Update(posts);
-                    }
-                catch (DbUpdateConcurrencyException)
-                    {
-                    }
+                    uow.Post.Update(posts);                
                 return RedirectToAction(nameof(Index));
                 }
             return View("~/Areas/Admin/Views/Post/Edit.cshtml", posts);
