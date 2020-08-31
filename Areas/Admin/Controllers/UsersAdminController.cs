@@ -118,16 +118,13 @@ namespace ManagementApp.Areas.Admin.Controllers {
         [HttpPost]
         [Route("user/edit/{id}")]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
+
         public async Task<IActionResult> Edit(int id, [Bind("id,name,email,password,isAdmin")] ManagementApp.Models.User user) {
             var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
             var useritem = uow.Users.Get(id);
 
             user.id = id;
-=======
-        public async Task<IActionResult> Edit(int id, [Bind("name,email,password,id,isAdmin")] ManagementApp.Models.User user) {
-            var userLogined = uow.Users.GetAll().Where(p => p.name == HttpContext.Session.GetString("username")).FirstOrDefault();
->>>>>>> c26caaf8b1fe5357db9b918f5a8a15797cf6aa98
+
             if ((HttpContext.Session.GetString("username") == null) || (userLogined.isAdmin == false))
                 {
                 return NotFound();
