@@ -47,6 +47,9 @@ git clone https://github.com/nhattan1504/App-Management
 #### Template user <a name="user"></a>
 <a><img src="wwwroot/image/user.PNG"></a>
 - Help user create post
+#### Detail 
+<a><img src="wwwroot/image/detail.png"></a>
+
 ## Reference <a name="referenct"></a>
 [Repository Và Unit Of Work](https://c-sharp.vn/entity-framework/repository-va-unit-of-work-c36aeb)<br />
 [EF and MVC tutorial](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-3.1)<br />
