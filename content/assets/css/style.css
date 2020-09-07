@@ -1,651 +1,119 @@
-
-
 body{
-    font-size: 87.5%;
+    font-size: 95%;
     font-family: Arial, sans-serif;
     line-height: 1.5;
     text-align: left;
 }
 
-.body{
-    margin: 0 auto;
-    width: 70%;
-    clear: both;
-}
 
-a{
-    text-decoration: none;
-}
-
-a:link, a:visited{
-    color: #FC5F3C;
-}
-
-a:hover, a:active{
-    color: #FC5F3C;
-}
-
-.header img{
-    width: 100%;
+.container{
+    width:100%;
     height: auto;
-}
-
-.header .logo_header{
     display: flex;
-}
-
-
-.header .logo_header .logo{
-    width: 30%;
-}
-
-.header .logo_header .logo img{
-    width: 100%;
-    height: auto;
-}
-
-.header .logo_header .banner{
-    width: 70%;
-}
-
-.header .logo_header .banner img{
-    width: 100%;
-    height: 100%;
-}
-
-.header .menu nav{
-    background-color: #666;
-    height: 40px;
-}
-
-.header .menu nav ul {
-    list-style: none;
-    font-weight: 700;
-    margin: 0 auto;
-}
-
-.header .menu nav ul li{
-    float: left;
-    display: inline;
-}
-
-.header .menu nav a:link, .header .menu nav a:visited {
-    color: #FFF;
-    display: inline-block;
-    padding: 10px 25px;
-    height: 40px;
-} 
-
-.header .menu nav a:hover,.header .menu nav a:active,
-.header .menu nav .active a:link, .header .menu nav .active a:visited {
-    background-color: #FC5F3C;
-    text-decoration: none;
-}
-
-.header .menu nav ul li a{
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-.content{
-    line-height: 25px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    display: flex;
-}
-
-.left-content{
-    width: 60%;
-    padding: 1% 1%;
-}
-
-.right-content{
-    width: 37%;
-    padding: 1% 1%;
- }
-
-.title_post{
-    text-align: left;
-    font-size: 300%;
-    line-height: 1.2;
-    font-weight: 400;
-    font-family: "Roboto", sans-serif;
-    margin: 2% auto;
-}
-
-.left-content .author{
-    font-size: 75%;
-}
-
-.author-avt{
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    height: auto;
-    line-height: 6%;
-}
-
-/* Social */
-.social{
-    color: #fff;
-    max-height:40px;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 20%;
-    margin-top: 10px;
+    
 }
 
-.btn-fb{
-    background-color: #516eab;
+.navbar-fixed-top{
+    top: 0;
+    border-width: 0 0 1px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    
 }
 
-.btn-twitter{
-    background-color: #29c5f6;
+.nav_bar{
+    background-color: #fff;
 }
 
-.btn-pinterest{
-    background-color: #ca212a;
-}
-
-.separate{
-    border-right: 1px solid #777;
-    height: 1px;
-    margin: 0 5px;
-}
-
-.btn{
-    color: #fff;
-    margin-right: 1%;
-}
-
-/* main */
-
-.main{
-    margin: 5% auto;
-}
-
-.representImg{
-    max-width: 37%;
-    margin-bottom: 4%;
-}
-
-.representImg img{
-    width: 100%;
-    height:auto;
-    max-width: 100%;
-}
-
-.description {
-    width:100%;
-    font-size: 90%;
-}
-
-.text-description{
-    padding: 1% 1%;
-    font-size: 15px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-style: italic;
-}
-
-.advertisement{
-    margin-bottom: 5%;
-    height: auto;
-    width: 100%;
-}
-
-.title_most_popular{
-    font-family: 'Roboto',sans-serif;
-    font-size: 100%;
-    line-height: 1.2;
-    margin-bottom: 5%;
-    border-bottom: 3px solid #222;
-    max-width: 300px;
+.menu_nav a{
+    color: #000;
+    box-sizing: border-box;
     height: auto;
 }
 
-.text_popular{
-    padding: 1% 2%;
-    background-color: #222;
-    color: #fff;
+.menu_nav a:hover{
+    text-decoration: none;
 }
 
-.content_popular {
-    height: 100%;
-}
-
-.component_popular{
-    width:100%;
-    height: auto;
-    margin-bottom: 20px;
+.right_header .menu_nav{
     display: flex;
 }
 
-.title_popular {
-    margin-left: 3%;
+.right_header .menu_nav .nav_item{
+   list-style-type: none;
+
 }
 
-.title_popular a{
-    font-size: 100%;
-    color: #000;   
-    text-decoration: none; 
-    padding: 1% 2%;
-    text-align: left;
-}
-
-.img_popular img{
-    width: 100%;
+.right_header .menu_nav li{
     height: auto;
-    max-width: 97px;
-    cursor: pointer;
 }
 
-@media only screen and (min-width: 150px) and (max-width: 600px){
-    .body{
-        width: 90%;
-        font-size: 95%;
-    }
+.right_header .menu_nav a{
+    padding: 15px;
+}
 
-    .header img{
-        width: 100%;
-    }
-    
-    .header .logo_header{
-        display: flex;
-    }
+.image_logo{
+    width: auto;
+    height: 90px;
+}
 
-    .header .menu nav{
-        height: 240px;
-    }
-    
-    .header .menu nav ul {
-        font-weight: 700;
-        padding-left: 0;
-    }
-    
-    .header .menu nav ul li{
-        width: 100%;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
-    .header .menu nav a:link, .header .menu nav a:visited {
-        padding: 10px 25px;
-        height: 40px;
-        display: block;
-    } 
+.carousel-inner{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
 
-    .content{
-        display: block;
-    }
-    
-    .left-content{
-        width: 100%;
-        padding: 1% 1%;
-    }
-    
-    .right-content{
-        width: 100%;
-        padding: 1% 1%;
-     }
-    
-    .title_post{
-        text-align: left;
-        font-size: 300%;
-        line-height: 1.2;
-        font-weight: 400;
-        font-family: "Roboto", sans-serif;
-        margin: 2% auto;
-    }
-    
-    .left-content .author{
-        font-size: 75%;
-    }
-    
-    .author-avt{
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        height: auto;
-        line-height: 6%;
-    }
-    
-    /* Social */
-    .social{
-        color: #fff;
-        max-height:40px;
-        align-items: center;
-        border-radius: 20%;
-        margin-top: 10px;
-    }
-    
-    .btn-fb{
-        background-color: #516eab;
-    }
-    
-    .btn-twitter{
-        background-color: #29c5f6;
-    }
-    
-    .btn-pinterest{
-        background-color: #ca212a;
-    }
-    
-    .separate{
-        border-right: 1px solid #777;
-        height: 1px;
-        margin: 0 5px;
-    }
-    
-    .btn{
-        color: #fff;
-        margin-right: 1%;
-    }
-    
-    /* main */
-    
-    .main{
-        margin: 5% auto;
-    }
-    
-    .representImg{
-        max-width: 37%;
-        margin-bottom: 4%;
-    }
+.carousel-inner, .carousel .item, .carousel img {
+    height: 100%!important;
+}
 
-    .representImg img{
-        width: 100%;
-        height:auto;
-        max-width: 100%;
-    }
-    
-    .description {
-        width:100%;
-        font-size: 90%;
-    }
-    
-    .text-description{
-        padding: 1% 1%;
-        font-size: 15px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-style: italic;
-    }
-    
-    .advertisement{
-        margin-bottom: 5%;
-        height: auto;
-        width: 100%;
-    }
-    
-    
-    
-    .title_most_popular{
-        font-family: 'Roboto',sans-serif;
-        font-size: 100%;
-        line-height: 1.2;
-        margin-bottom: 5%;
-        border-bottom: 3px solid #222;
-        max-width: 300px;
-        height: auto;
-    }
-    
-    .text_popular{
-        padding: 1% 2%;
-        background-color: #222;
-        color: #fff;
-    }
-    
-    .content_popular {
-        height: 100%;
-    }
-    
-    .component_popular{
-        width:100%;
-        height: auto;
-        margin-bottom: 20px;
-        display: flex;
-    }
-    
-    .title_popular {
-        margin-left: 3%;
-    }
-    
-    .title_popular a{
-        font-size: 100%;
-        color: #000;   
-        text-decoration: none; 
-        padding: 1% 2%;
-        text-align: left;
-    }
-    
-    .img_popular img{
-        width: 100%;
-        height: auto;
-        max-width: 97px;
-        cursor: pointer;
-    }
+.carousel-tbox{
+    font-size: 20px;
+    position: absolute;
+    left: 130px;
+    top: 35%;
+    color: #fff;
+    background: rgba(37,46,89,.5);
+    padding: 10px 40px;
+}
+
+.banner{
+    height: 500px;
+    width: 100%;
+    margin-top: 90px;
 
 }
 
-@media only screen and (min-width: 600px){
-    .body{
-        width: 90%;
-        font-size: 100%;
-    }
-    
-    .header img{
-        width: 100%;
-        height: auto;
-    }
-    
-    .header .logo_header{
-        display: flex;
-    }
-    
-    
-    .header .logo_header .logo{
-        width: 30%;
-    }
-    
-    .header .logo_header .logo img{
-        width: 100%;
-        height: auto;
-        max-width: 100%;
-    }
-    
-    .header .logo_header .banner{
-        width: 70%;
-    }
-    
-    .header .logo_header .banner img{
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-    }
-    
-    .header .menu nav{
-        background-color: #666;
-        height: 40px;
-        width:100%;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .header .menu nav ul {
-        font-weight: 700;
-        margin: 0 auto;
-    }
-    
-    .header .menu nav ul li{
-        float: left;
-        display: inline;    
-    }
-    
-    .header .menu nav a:link, .header .menu nav a:visited {
-        color: #FFF;
-        display: inline-block;
-        padding: 10px 25px;
-        height: 40px;
-    } 
-    
-    .header .menu nav a:hover,.header .menu nav a:active,
-    .header .menu nav .active a:link, .header .menu nav .active a:visited {
-        background-color: #FC5F3C;
-        text-decoration: none;
-    }
-    
-    .header .menu nav ul li a{
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-    }
+.box1 h2::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 4px;
+    background-color: #c1b086;
+}
 
-    .content{
-        display: flex;
-    }
-    
-    .left-content{
-        width: 60%;
-        padding: 1% 1%;
-    }
-    
-    .right-content{
-        width: 37%;
-        padding: 1% 1%;
-     }
-    
-    .title_post{
-        text-align: left;
-        font-size: 250%;
-        line-height: 1.2;
-        font-weight: 600;
-        font-family: "Roboto", sans-serif;
-        margin: 2% auto;
-    }
-    
-    .left-content .author{
-        font-size: 150%;
-    }
-    
-    .author-avt{
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        height: auto;
-        line-height: 6%;
-    }
-    
-    /* Social */
-    .social{
-        color: #fff;
-        max-height:40px;
-        align-items: center;
-        border-radius: 20%;
-        margin-top: 10px;
-    }
-    
-    .btn-fb{
-        background-color: #516eab;
-    }
-    
-    .btn-twitter{
-        background-color: #29c5f6;
-    }
-    
-    .btn-pinterest{
-        background-color: #ca212a;
-    }
-    
-    .separate{
-        border-right: 1px solid #777;
-        height: 1px;
-        margin: 0 5px;
-    }
-    
-    .btn{
-        color: #fff;
-        margin-right: 1%;
-    }
-    
-    /* main */
-    
-    .main{
-        margin: 5% auto;
-    }
-    
-    .representImg{
-        max-width: 100%;
-        margin-bottom: 4%;
-    }
+.btn-read{
+    background: #c1b086;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-top: 15px;
+    display: inline-block;
+    overflow: hidden;
+}
 
-    .representImg img{
-        width: 100%;
-        height:auto;
-    }
+.image_intro{
+    width:100%;
+    height:auto;
+}
+
+@media(min-width: 768px){
     
-    .description {
-        width:100%;
-        font-size: 90%;
-    }
-    
-    .text-description{
-        padding: 1% 1%;
-        font-size: 15px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-style: italic;
-    }
-    
-    .advertisement{
-        margin-bottom: 5%;
-        height: auto;
-        width: 100%;
-    }
-    
-    
-    
-    .title_most_popular{
-        font-family: 'Roboto',sans-serif;
-        font-size: 100%;
-        line-height: 1.2;
-        margin-bottom: 5%;
-        border-bottom: 3px solid #222;
-        max-width: 300px;
-        height: auto;
-    }
-    
-    .text_popular{
-        padding: 1% 2%;
-        background-color: #222;
-        color: #fff;
-    }
-    
-    .content_popular {
-        height: 100%;
-    }
-    
-    .component_popular{
-        width:100%;
-        height: auto;
-        margin-bottom: 20px;
-        display: flex;
-    }
-    
-    .title_popular {
-        margin-left: 3%;
-    }
-    
-    .title_popular a{
-        font-size: 100%;
-        color: #000;   
-        text-decoration: none; 
-        padding: 1% 2%;
-        text-align: left;
-    }
-    
-    .img_popular img{
-        width: 100%;
-        height: auto;
-        max-width: 97px;
-        cursor: pointer;
-    }
 }
